@@ -7,6 +7,10 @@ services:
       - "5000:5000"
     volumes:
       - ./backend:/app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://jeb:jebbybebby@db:5432/poke9000
 
   frontend:
     build: ./frontend
@@ -16,3 +20,18 @@ services:
       - ./frontend:/app
     depends_on:
       - backend
+      
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: jeb
+      POSTGRES_PASSWORD: jebbybebby
+      POSTGRES_DB: poke9000
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

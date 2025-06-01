@@ -1,3 +1,4 @@
 fastapi
 uvicorn
 rpy2
+psycopg2-binary
